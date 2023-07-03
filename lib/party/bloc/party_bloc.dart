@@ -32,6 +32,7 @@ class PartyBloc extends Bloc<PartyEvent, PartyState> {
         ));
 
         emit(await selectParty(event.partyIndex, event.partyID));
+        // emit(state.cloneWith());
       },
       transformer: droppable(),
     );
@@ -97,26 +98,25 @@ class PartyBloc extends Bloc<PartyEvent, PartyState> {
     //   });l
     // });
 
-    final response = await http.get(
-      Uri.parse(
-          'https://electionflutter-default-rtdb.asia-southeast1.firebasedatabase.app/party_list.json'),
-    );
-
-    final Map _party = json.decode(response.body);
-    print(_party);
-    List<Party> _party_list = [];
-
-    _party.forEach((key, value) {
-      _party_list.add(Party(
-        number: int.parse(value['number']),
-        titleKyrgyz: value['partyName'],
-        titleRussian: value['partyName'],
-        id: value['id'],
-        image: value['image'],
-      ));
-    });
-
     try {
+      final response = await http.get(
+        Uri.parse(
+            'https://electionflutter-default-rtdb.asia-southeast1.firebasedatabase.app/party_list.json'),
+      );
+
+      final Map _party = json.decode(response.body);
+      print(_party);
+      List<Party> _party_list = [];
+
+      _party.forEach((key, value) {
+        _party_list.add(Party(
+          number: int.parse(value['number']),
+          titleKyrgyz: value['partyName'],
+          titleRussian: value['partyName'],
+          id: value['id'],
+          image: value['image'],
+        ));
+      });
       return state.cloneWith(
         party_list: _party_list,
         loading: false,
@@ -197,13 +197,13 @@ class PartyBloc extends Bloc<PartyEvent, PartyState> {
     print(state.candidateName);
     print(state.partyName);
 
-    http.post(
-        Uri.parse(
-            'https://electionflutter-default-rtdb.asia-southeast1.firebasedatabase.app/party_list.json'),
-        body: json.encode({
-          'partyName': state.partyName,
-          'count': '133',
-        }));
+    // http.post(
+    //     Uri.parse(
+    //         'https://electionflutter-default-rtdb.asia-southeast1.firebasedatabase.app/party_list.json'),
+    //     body: json.encode({
+    //       'partyName': state.partyName,
+    //       'count': '133',
+    //     }));
 
     try {
       return state.cloneWith(

@@ -24,7 +24,8 @@ class PartyCard extends StatelessWidget {
           child: GestureDetector(
             onTap: () {
               context.read<PartyBloc>().add(
-                    SelectPartyEvent(partyIndex: index + 1, partyID: party.id),
+                    SelectPartyEvent(
+                        partyIndex: index + 1, partyID: party.id.toString(), ),
                   );
 
               context.read<PartyBloc>().add(

@@ -1,7 +1,7 @@
+import 'package:election_flutter/party/party_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'party/bloc/party_bloc.dart';
-import 'registration_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: RegisterPage(),
+        home: PartyListPage(),
       ),
     );
   }

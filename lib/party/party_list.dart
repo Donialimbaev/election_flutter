@@ -25,10 +25,12 @@ class _PartyListState extends State<PartyList> {
         bool isSelected = state.selectedPartyIndex != null;
 
         List party_list = state.party_list;
-
+        print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+        print(state.selectedCandidateIndex!);
         print(isSelected);
 
         return Container(
+          height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
               Container(
@@ -58,7 +60,7 @@ class _PartyListState extends State<PartyList> {
                           width: 200,
                           child: ElevatedButton(
                             onPressed: state.selectedPartyIndex == null
-                                ? null
+                                ? () {}
                                 : () async {
                                     await Navigator.of(context).push(
                                       MaterialPageRoute(

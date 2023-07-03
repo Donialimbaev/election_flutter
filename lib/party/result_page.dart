@@ -1,5 +1,5 @@
 import 'package:election_flutter/models/party.dart';
-import 'package:election_flutter/registration_page.dart';
+import 'package:election_flutter/party/party_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -112,7 +112,7 @@ class _ResultPageState extends State<ResultPage> {
 
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                      builder: (context) => RegisterPage()));
+                                      builder: (context) => PartyListPage()));
 
                               final snackBar = SnackBar(
                                 content: const Text('Спасибо за участие'),

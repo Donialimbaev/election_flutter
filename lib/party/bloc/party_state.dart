@@ -12,8 +12,8 @@ class PartyState {
 
   PartyState({
     this.party_list = const [],
-    this.selectedPartyIndex,
-    this.selectedCandidateIndex,
+    this.selectedPartyIndex = 200,
+    this.selectedCandidateIndex = 200,
     this.loading = false,
     this.candidateName,
     this.partyName,
