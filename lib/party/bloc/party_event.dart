@@ -13,4 +13,14 @@ class SelectPartyNameEvent extends PartyEvent {
   SelectPartyNameEvent({required this.name});
 }
 
+class SelectCandidateEvent extends PartyEvent {
+  int candidateIndex;
+  SelectCandidateEvent({required this.candidateIndex});
+}
+
+class SelectCandidateNameEvent extends PartyEvent {
+  String name;
+  SelectCandidateNameEvent({required this.name});
+}
+
 class SendResultToServerEvent extends PartyEvent {}

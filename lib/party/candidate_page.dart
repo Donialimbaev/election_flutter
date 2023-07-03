@@ -1,48 +1,49 @@
-import 'package:election_flutter/dummy_data/constants.dart';
-import 'package:election_flutter/dummy_data/dummy_data_part.dart';
+import 'package:election_flutter/dummy_data/candidates_from_party.dart';
 import 'package:election_flutter/models/party.dart';
-import 'package:election_flutter/party/candidate_page.dart';
-import 'package:election_flutter/party/party_card.dart';
+import 'package:election_flutter/party/candidate_card.dart';
+import 'package:election_flutter/party/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/party_bloc.dart';
-import 'bloc/party_event.dart';
 import 'bloc/party_state.dart';
 
-class PartyList extends StatefulWidget {
-  const PartyList({super.key});
+class CandidatteListPage extends StatefulWidget {
+  final String number;
+  CandidatteListPage({
+    required this.number,
+  });
 
   @override
-  State<PartyList> createState() => _PartyListState();
+  State<CandidatteListPage> createState() => _CandidatteListPageState();
 }
 
-class _PartyListState extends State<PartyList> {
+class _CandidatteListPageState extends State<CandidatteListPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PartyBloc, PartyState>(
-      builder: (context, state) {
-        bool isSelected = state.selectedPartyIndex != null;
+    var candidates = candidates_form_party['party${widget.number}'];
 
-        List party_list = state.party_list;
-
-        print(isSelected);
-
-        return Container(
-          child: Column(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Выберите кандидита'),
+      ),
+      body: BlocBuilder<PartyBloc, PartyState>(
+        builder: (context, state) {
+          bool isSelected = state.selectedCandidateIndex != null;
+          return Column(
             children: [
               Container(
                 height: MediaQuery.of(context).size.height - 150,
                 child: ListView.builder(
-                  itemCount: party_list.length,
-                  itemBuilder: (context, index) {
-                    Party party = state.party_list[index];
+                  itemCount: candidates!.length,
+                  itemBuilder: ((context, index) {
+                    var candidate = candidates!.values.elementAt(index);
 
                     return BlocProvider.value(
                       value: BlocProvider.of<PartyBloc>(context),
-                      child: PartyCard(party: party, index: index),
+                      child: CandidateCard(index: index, candidate: candidate),
                     );
-                  },
+                  }),
                 ),
               ),
               if (isSelected == true)
@@ -51,11 +52,28 @@ class _PartyListState extends State<PartyList> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
                           height: 55,
-                          width: 200,
+                          width: 150,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('Назад'),
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: Colors.green,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 55,
+                          width: 150,
                           child: ElevatedButton(
                             onPressed: state.selectedPartyIndex == null
                                 ? null
@@ -66,10 +84,7 @@ class _PartyListState extends State<PartyList> {
                                             BlocProvider.value(
                                           value: BlocProvider.of<PartyBloc>(
                                               context),
-                                          child: CandidatteListPage(
-                                            number: state.selectedPartyIndex
-                                                .toString(),
-                                          ),
+                                          child: ResultPage(),
                                         ),
                                       ),
                                     );
@@ -89,9 +104,9 @@ class _PartyListState extends State<PartyList> {
                   ),
                 )
             ],
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

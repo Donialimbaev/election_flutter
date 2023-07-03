@@ -25,7 +25,7 @@ class _PartyListPageState extends State<PartyListPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Список партии'),
+        title: Text('Партиялар тизмеги'),
       ),
       body: BlocProvider.value(
         value: BlocProvider.of<PartyBloc>(context),

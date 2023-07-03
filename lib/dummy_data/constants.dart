@@ -1,2 +1,2 @@
 String imagePlaceholderUrl =
-    'https://static.vecteezy.com/system/resources/previews/010/748/083/original/elections-icon-design-free-vector.jpg';
+    'https://bagyt.kg/wp-content/uploads/2020/10/Publikatsiya-dlya-sotssetej-800x800-piks-15-640x640.jpeg';
